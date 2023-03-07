@@ -36,7 +36,7 @@ console.log(step2);
 
 let tripListArray = [
   { client: "Roger", start: "0", duration: "5", price: "10" },
-  { client: "Pongo", start: "3", duration: "7", price: "14" },
+  { client: "Pongo", start: "6", duration: "7", price: "14" },
   { client: "Perdita", start: "8", duration: "10", price: "8" },
   { client: "Anita", start: "16", duration: "3", price: "7" },
 ];
@@ -68,6 +68,7 @@ console.log(step3);
 let tripA = { client: "Roger", start: 0, duration: 5, price: 10 };
 let tripB = { client: "Pongo", start: 3, duration: 7, price: 14 };
 let tripC = { client: "Perdita", start: 8, duration: 10, price: 8 };
+
 function checkCompatibility(tripA, tripB) {
   let startA = parseInt(tripA.start);
   let durationA = parseInt(tripA.duration);
@@ -81,3 +82,26 @@ function checkCompatibility(tripA, tripB) {
 console.log(checkCompatibility(tripA, tripC));
 let step4 = checkCompatibility(tripA, tripC);
 document.getElementById("Etape4").innerText += "\n" + step4;
+
+// etape 4 Bis  On generalise le processus  pour plusieurs voyages // je reprends les données du tableau de voyages
+function checkCompatibility(tripListArray) {
+  for (let i = 0; i < tripListArray.length - 1; i++) {
+    for (let j = i + 1; j < tripListArray.length; j++) {
+      let startA = parseInt(tripListArray[i].start);
+      let durationA = parseInt(tripListArray[i].duration);
+      let startB = parseInt(tripListArray[j].start);
+
+      if (
+        startA + durationA > startB &&
+        startB + parseInt(tripListArray[j].duration) > startA
+      ) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+let step4bis = checkCompatibility(tripListArray);
+console.log(checkCompatibility(tripListArray));
+document.getElementById("Etape4bis").innerText += "\n" + step4bis;
