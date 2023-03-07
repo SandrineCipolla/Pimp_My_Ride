@@ -61,3 +61,23 @@ let step3 = getTripsPrice(tripListArray);
 document.getElementById("Etape3").innerText +=
   "\n" + "Prix total de tous les voyages:" + step3;
 console.log(step3);
+
+//etape 4: Compatibility : Créez une fonction `checkCompatibility(tripA, tripB)` qui comparent deux structures `voyages` et retourne un booléen déterminant si les structures sont compatibles ou non.
+//Il s'agit de déterminer si un vol (représenté par une structure `trips`) n'empiète pas sur les horaires d'un autre.
+
+let tripA = { client: "Roger", start: 0, duration: 5, price: 10 };
+let tripB = { client: "Pongo", start: 3, duration: 7, price: 14 };
+let tripC = { client: "Perdita", start: 8, duration: 10, price: 8 };
+function checkCompatibility(tripA, tripB) {
+  let startA = parseInt(tripA.start);
+  let durationA = parseInt(tripA.duration);
+  let startB = parseInt(tripB.start);
+  let startC = parseInt(tripC.start);
+  if (startA + durationA > startC) {
+    return false;
+  }
+  return true;
+}
+console.log(checkCompatibility(tripA, tripC));
+let step4 = checkCompatibility(tripA, tripC);
+document.getElementById("Etape4").innerText += "\n" + step4;
