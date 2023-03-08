@@ -36,7 +36,7 @@ console.log(step2);
 
 let tripListArray = [
   { client: "Roger", start: "0", duration: "5", price: "10" },
-  { client: "Pongo", start: "6", duration: "7", price: "14" },
+  { client: "Pongo", start: "3", duration: "7", price: "14" },
   { client: "Perdita", start: "8", duration: "10", price: "8" },
   { client: "Anita", start: "16", duration: "3", price: "7" },
 ];
@@ -68,40 +68,44 @@ console.log(step3);
 let tripA = { client: "Roger", start: 0, duration: 5, price: 10 };
 let tripB = { client: "Pongo", start: 3, duration: 7, price: 14 };
 let tripC = { client: "Perdita", start: 8, duration: 10, price: 8 };
+let tripD = { client: "Anita", start: 16, duration: 3, price: 7 };
 
 function checkCompatibility(tripA, tripB) {
   let startA = parseInt(tripA.start);
   let durationA = parseInt(tripA.duration);
   let startB = parseInt(tripB.start);
-  let startC = parseInt(tripC.start);
-  if (startA + durationA > startC) {
+
+  if (startA + durationA > startB) {
     return false;
   }
   return true;
 }
-console.log(checkCompatibility(tripA, tripC));
-let step4 = checkCompatibility(tripA, tripC);
+console.log(checkCompatibility(tripA, tripB));
+let step4 = checkCompatibility(tripA, tripB);
 document.getElementById("Etape4").innerText += "\n" + step4;
 
-// etape 4 Bis  On generalise le processus  pour plusieurs voyages // je reprends les données du tableau de voyages
-function checkCompatibility(tripListArray) {
-  for (let i = 0; i < tripListArray.length - 1; i++) {
-    for (let j = i + 1; j < tripListArray.length; j++) {
-      let startA = parseInt(tripListArray[i].start);
-      let durationA = parseInt(tripListArray[i].duration);
-      let startB = parseInt(tripListArray[j].start);
+//etape 5: Possibilities Développez une fonction findCompatibilities(trips) qui retourne,
+// à partir d'une liste de voyages, tous les ensembles de voyages compatibles les uns avec les autres.
+// function findCompatibilities(trips)
 
-      if (
-        startA + durationA > startB &&
-        startB + parseInt(tripListArray[j].duration) > startA
-      ) {
-        return false;
+function findCompatibilities(trips) {
+  let result = [];
+
+  trips.forEach((tripA, indexA) => {
+    for (let indexB = 0; indexB < trips.length; indexB++) {
+      let tripB = trips[indexB];
+      if (checkCompatibility(tripA, tripB)) {
+        console.log(tripA.client, "est comptabile avec ", tripB.client);
+        result.push([tripA, tripB]);
+      } else if (indexA === indexB) {
+        console.log(tripA.client, "est comptabile avec ", tripB.client);
+        result.push([tripA]);
       }
     }
-  }
-
-  return true;
+  });
+  console.log(result);
+  return result;
 }
-let step4bis = checkCompatibility(tripListArray);
-console.log(checkCompatibility(tripListArray));
-document.getElementById("Etape4bis").innerText += "\n" + step4bis;
+
+let step5 = findCompatibilities(tripListArray);
+document.getElementById("Etape5").innerText += "\n " + JSON.stringify(step5);
