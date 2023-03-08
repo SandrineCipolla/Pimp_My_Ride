@@ -56,7 +56,6 @@ function getTripsPrice(listOfTrip) {
   console.log("Prix total de tous les voyages:" + addition);
   return addition;
 }
-
 let step3 = getTripsPrice(tripListArray);
 document.getElementById("Etape3").innerText +=
   "\n" + "Prix total de tous les voyages:" + step3;
@@ -109,3 +108,47 @@ function findCompatibilities(trips) {
 
 let step5 = findCompatibilities(tripListArray);
 document.getElementById("Etape5").innerText += "\n " + JSON.stringify(step5);
+
+//etape 6 : Final Choice : Développez une dernière fonction findBestPrice(trips), qui renverra le combo ou le voyage seul qui rapportera le plus à votre entreprise.
+//Avec l'exemple précédent, la meilleur combinaison est Pongo (3h -> 10h) et Anita (16h -> 19h) car 14 + 7 = 21.
+//==> dans le resulat de (findCompatibilities) quelle ligne rapporte le plus.
+
+function findBestPrice(trips) {
+  // pour cahque ligne du résulat de findCompatibilities(tripListArray)
+  //comparer les prix et retenir le plus grand
+  let bestCombo = findCompatibilities(trips);
+  let bestPrice = 0;
+  let bestTripCombo = "";
+
+  for (let i = 0; i < bestCombo.length; i++) {
+    let combo = bestCombo[i];
+    let totalPrice = 0;
+    let tripCombo = "";
+
+    for (let j = 0; j < combo.length; j++) {
+      let trip = combo[j];
+      totalPrice += parseInt(trip.price);
+      tripCombo += trip.client + " ";
+    }
+    if (totalPrice > bestPrice) {
+      bestPrice = totalPrice;
+      bestTripCombo = tripCombo;
+    }
+  }
+  console.log(
+    "Meilleure combinaison de voyages: " +
+      bestTripCombo +
+      " pour un gain total " +
+      bestPrice
+  );
+  console.log(bestCombo);
+  return bestCombo;
+}
+findBestPrice(tripListArray);
+
+let step6 =
+  "Meilleure combinaison de voyages: " +
+  bestTripCombo +
+  " pour un gain total " +
+  bestPrice;
+document.getElementById("Etape6").innerText += "\n " + step6;
