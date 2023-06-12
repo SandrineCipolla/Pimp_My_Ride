@@ -18,25 +18,28 @@
   }
 
   let step1 = parseTrip("Perdita 8 10 8");
-  console.log(step1);
+  console.log("step1",step1);
 
-// //etape2: Loop Parsing :utiliser la fonction précédente dans une nouvelle fonction prenant en entrée une journée complète de voyages (plusieurs lignes) et retournant une liste de structures comme définies précédemment
-// function parseTrips(trips) {
-//   let result = [];
-//   for (const currentTrip of trips) {
-//     let currentTripData = parseTrips(currentTrip);
-//     result.push(currentTripData);
-//   }
-//   return result;
-// }
-// let step2 = parseTrips([
-//   "Roger 0 5 10",
-//   "Pongo 3 7 14",
-//   "Perdita 8 10 8",
-//   "Anita 16 3 7",
-// ]);
-// document.getElementById("Etape2").innerText += "\n" + JSON.stringify(step2);
-// console.log(step2);
+// //etape2: Loop Parsing :Votre fonction parseTrips(trips) ne devrait pas changer énormément, faites en sorte qu'elle retourne un tableau de [Trip]
+
+function parseTrips(trips) {
+  let result = [];
+  for (const currentTrip of trips) {
+    let elements = currentTrip.split(" ");
+    let currentTripData = new Trip(elements[0], elements[1], elements[2], elements[3]);
+    result.push(currentTripData);
+  }
+  return result;
+}
+
+let step2 = parseTrips([
+  "Roger 0 5 10",
+  "Pongo 3 7 14",
+  "Perdita 8 10 8",
+  "Anita 16 3 7",
+]);
+
+console.log("step2",step2);
 
 // //etape 3 Prices: créer une fonction qui prend en argument une liste de voyage et retourne la somme des prix de cet ensemble
 
