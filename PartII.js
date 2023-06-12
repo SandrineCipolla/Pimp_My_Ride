@@ -1,16 +1,24 @@
 //PART II
 //etape1: Parsing  : Modifiez votre fonction parseTrip(trip) pour qu'elle retourne une structure de type Trip
-// function parseTrip(trip) {
-//   class Trip {
-//     constructor(name, start, duration, price) {
-//       this.name = name;
-//       this.start = start;
-//       this.duration = duration;
-//       this.price = price;
-//     }
-//   }
-// }
-// console.log(trip);
+
+  class Trip {
+    constructor(name, start, duration, price) {
+      this.name = name;
+      this.start = start;
+      this.duration = duration;
+      this.price = price;
+    }
+  }
+
+  function parseTrip(trip) {
+    let elements = trip.split(" ");
+
+    let tripData = new Trip(elements[0],elements[1],elements[2], elements[3]);
+    return tripData;
+  }
+
+  let step1 = parseTrip("Perdita 8 10 8");
+  console.log(step1);
 
 // //etape2: Loop Parsing :utiliser la fonction précédente dans une nouvelle fonction prenant en entrée une journée complète de voyages (plusieurs lignes) et retournant une liste de structures comme définies précédemment
 // function parseTrips(trips) {
