@@ -39,6 +39,7 @@ let tripListArray = [
   { client: "Pongo", start: "3", duration: "7", price: "14" },
   { client: "Perdita", start: "8", duration: "10", price: "8" },
   { client: "Anita", start: "16", duration: "3", price: "7" },
+  { client: "Roger", start: "0", duration: "5", price: "10" },
 ];
 function getTripsPrice(listOfTrip) {
   let totalPrice = 0;
