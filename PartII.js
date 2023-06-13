@@ -7,6 +7,7 @@
       this.start = start;
       this.duration = duration;
       this.price = price;
+      this.end = parseInt(start) + parseInt(duration);
     }
   }
 
@@ -41,35 +42,43 @@ let step2 = parseTrips([
 
 console.log("step2",step2);
 
-// //etape 3 Prices: créer une fonction qui prend en argument une liste de voyage et retourne la somme des prix de cet ensemble
+// //etape 3 End Trip: Calculez l'heure de fin de chaque voyage directement dans le constructeur de votre objet `Trip` .
 
-// let tripListArray = [
-//   { client: "Roger", start: "0", duration: "5", price: "10" },
-//   { client: "Pongo", start: "3", duration: "7", price: "14" },
-//   { client: "Perdita", start: "8", duration: "10", price: "8" },
-//   { client: "Anita", start: "16", duration: "3", price: "7" },
-//   { client: "Roger", start: "0", duration: "5", price: "10" },
-// ];
-// function getTripsPrice(listOfTrip) {
-//   let totalPrice = 0;
-//   let addition = "";
+//Par exemple, **Anita** aura une nouvelle propriété `end` qui aura pour valeur 19 car `16 + 3 = 19`.
 
-//   for (const trip of listOfTrip) {
-//     totalPrice = totalPrice + parseInt(trip.price); // ou totalPrice += parseInt(trip.price);
-//     if (addition == "") {
-//       addition = addition + trip.price;
-//     } else {
-//       addition += " + " + trip.price; // ou addition = addition + " + " + trip.price;
-//     }
+function endTrip(tripData) {
+  let elements = tripData.split(" ");
+
+  let trip = new Trip(elements[0], elements[1], elements[2], elements[3],elements[4]);
+  return trip.end
+}
+// let step3 =endTrip(["Anita",16,3,7]);
+
+let step3 =endTrip("Perdita 8 10 8");
+console.log("step3",step3)
+
+// function endTrip(tripDataArray) {
+//   let results = [];
+  
+//   for (let i = 0; i < tripDataArray.length; i++) {
+//     let tripData = tripDataArray[i];
+//     let trip = new Trip(tripData[0], tripData[1], tripData[2], tripData[3]);
+//     results.push(trip.end);
 //   }
-//   addition = addition + " = " + totalPrice;
-//   console.log("Prix total de tous les voyages:" + addition);
-//   return addition;
+  
+//   return results;
 // }
-// let step3 = getTripsPrice(tripListArray);
-// document.getElementById("Etape3").innerText +=
-//   "\n" + "Prix total de tous les voyages:" + step3;
-// console.log(step3);
+
+// let step3 = endTrip([
+//   ["Roger", 0, 5, 10],
+//   ["Pongo", 3, 7, 14],
+//   ["Perdita", 8, 10, 8],
+//   ["Anita", 16, 3, 7]
+// ]);
+
+// console.log("step3", step3);
+
+
 
 // //etape 4: Compatibility : Créez une fonction `checkCompatibility(tripA, tripB)` qui comparent deux structures `voyages` et retourne un booléen déterminant si les structures sont compatibles ou non.
 // //Il s'agit de déterminer si un vol (représenté par une structure `trips`) n'empiète pas sur les horaires d'un autre.
