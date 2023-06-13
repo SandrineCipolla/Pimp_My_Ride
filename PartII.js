@@ -4,10 +4,18 @@
   class Trip {
     constructor(name, start, duration, price) {
       this.name = name;
-      this.start = start;
+      this.start = parseInt(start);
       this.duration = duration;
       this.price = price;
       this.end = parseInt(start) + parseInt(duration);
+    }
+
+    isCompatible(trip) {
+      if (this.end <= trip.start ) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 
@@ -79,28 +87,16 @@ console.log("step3",step3)
 // console.log("step3", step3);
 
 
+// //etape 4: Compatibility : Créez une fonction isCompatible(trip) dans votre objet Trip qui comparent deux structures Trip et retourne un booléen déterminant si les structures sont compatibles ou non.
 
-// //etape 4: Compatibility : Créez une fonction `checkCompatibility(tripA, tripB)` qui comparent deux structures `voyages` et retourne un booléen déterminant si les structures sont compatibles ou non.
-// //Il s'agit de déterminer si un vol (représenté par une structure `trips`) n'empiète pas sur les horaires d'un autre.
+// let trip = new Trip("Roger 0 5 10");
+// let anotherTrip = new Trip("Perdita 8 10 8");
 
-// let tripA = { client: "Roger", start: 0, duration: 5, price: 10 };
-// let tripB = { client: "Pongo", start: 3, duration: 7, price: 14 };
-// let tripC = { client: "Perdita", start: 8, duration: 10, price: 8 };
-// let tripD = { client: "Anita", start: 16, duration: 3, price: 7 };
+let trip = new Trip("Roger", 0, 5, 10);
+let anotherTrip = new Trip("Perdita", 8, 10, 8);
 
-// function checkCompatibility(tripA, tripB) {
-//   let startA = parseInt(tripA.start);
-//   let durationA = parseInt(tripA.duration);
-//   let startB = parseInt(tripB.start);
-
-//   if (startA + durationA > startB) {
-//     return false;
-//   }
-//   return true;
-// }
-// console.log(checkCompatibility(tripA, tripB));
-// let step4 = checkCompatibility(tripA, tripB);
-// document.getElementById("Etape4").innerText += "\n" + step4;
+let step4 =trip.isCompatible(anotherTrip);
+console.log("step4",step4);
 
 // //etape 5: Possibilities Développez une fonction findCompatibilities(trips) qui retourne,
 // // à partir d'une liste de voyages, tous les ensembles de voyages compatibles les uns avec les autres.
