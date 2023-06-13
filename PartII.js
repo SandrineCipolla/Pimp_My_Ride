@@ -98,72 +98,87 @@ let anotherTrip = new Trip("Perdita", 8, 10, 8);
 let step4 =trip.isCompatible(anotherTrip);
 console.log("step4",step4);
 
-// //etape 5: Possibilities Développez une fonction findCompatibilities(trips) qui retourne,
-// // à partir d'une liste de voyages, tous les ensembles de voyages compatibles les uns avec les autres.
-// // function findCompatibilities(trips)
+// //etape 5: Possibilities Modifiez votre fonction findCompatibilities(trips) qui retourne les ensembles de voyages compatibles.
 
-// function findCompatibilities(trips) {
-//   let result = [];
+function findCompatibilities(trips) {
+  let result = [];
 
-//   trips.forEach((tripA, indexA) => {
-//     for (let indexB = 0; indexB < trips.length; indexB++) {
-//       let tripB = trips[indexB];
-//       if (checkCompatibility(tripA, tripB)) {
-//         console.log(tripA.client, "est comptabile avec ", tripB.client);
-//         result.push([tripA, tripB]);
-//       } else if (indexA === indexB) {
-//         console.log(tripA.client, "est comptabile avec ", tripB.client);
-//         result.push([tripA]);
-//       }
-//     }
-//   });
-//   console.log(result);
-//   return result;
-// }
+  trips.forEach((tripA, indexA) => {
+    for (let indexB = 0; indexB < trips.length; indexB++) {
+      let tripB = trips[indexB];
+      if (tripA.isCompatible(tripB)) {
+        console.log(tripA.name, "est compatible avec", tripB.name);
+        result.push([tripA, tripB]);
+      } else if (indexA === indexB) {
+        console.log(tripA.name, "est compatible avec lui-même");
+        result.push([tripA]);
+      }
+    }
+  });
 
-// let step5 = findCompatibilities(tripListArray);
-// document.getElementById("Etape5").innerText += "\n " + JSON.stringify(step5);
+  console.log(result);
+  return result;
+}
+
+// Création d'instances de la classe Trip
+let trip1 = new Trip("Roger", 0, 5, 10);
+let trip2 = new Trip("Perdita", 8, 10, 8);
+let trip3 = new Trip("Anita", 16, 3, 7);
+let trip4 = new Trip("Pongo", 3, 7, 14);
+
+// Création d'un tableau de voyages
+let tripListArray = [trip1, trip2, trip3,trip4];
+
+// Appel de la fonction findCompatibilities avec le tableau de voyages
+let step5 = findCompatibilities(tripListArray);
+console.log("step5",step5)
+
 
 // //etape 6 : Final Choice : Développez une dernière fonction findBestPrice(trips), qui renverra le combo ou le voyage seul qui rapportera le plus à votre entreprise.
 // //Avec l'exemple précédent, la meilleur combinaison est Pongo (3h -> 10h) et Anita (16h -> 19h) car 14 + 7 = 21.
 // //==> dans le resulat de (findCompatibilities) quelle ligne rapporte le plus.
 
-// function findBestPrice(trips) {
-//   // pour cahque ligne du résulat de findCompatibilities(tripListArray)
-//   //comparer les prix et retenir le plus grand
-//   let bestCombo = findCompatibilities(trips);
-//   let bestPrice = 0;
-//   let bestTripCombo = "";
+function findBestPrice(trips) {
+  let bestCombo = findCompatibilities(trips);
+  let bestPrice = 0;
+  let bestTripCombo = "";
 
-//   for (let i = 0; i < bestCombo.length; i++) {
-//     let combo = bestCombo[i];
-//     let totalPrice = 0;
-//     let tripCombo = "";
+  for (let i = 0; i < bestCombo.length; i++) {
+    let combo = bestCombo[i];
+    let totalPrice = 0;
+    let tripCombo = "";
 
-//     for (let j = 0; j < combo.length; j++) {
-//       let trip = combo[j];
-//       totalPrice += parseInt(trip.price);
-//       tripCombo += trip.client + " ";
-//     }
-//     if (totalPrice > bestPrice) {
-//       bestPrice = totalPrice;
-//       bestTripCombo = tripCombo;
-//     }
-//   }
-//   console.log(
-//     "Meilleure combinaison de voyages: " +
-//       bestTripCombo +
-//       " pour un gain total " +
-//       bestPrice
-//   );
-//   console.log(bestCombo);
-//   return bestCombo;
-// }
-// findBestPrice(tripListArray);
+    for (let j = 0; j < combo.length; j++) {
+      let trip = combo[j];
+      totalPrice += trip.price;
+      tripCombo += trip.name + " ";
+    }
 
-// let step6 =
-//   "Meilleure combinaison de voyages: " +
-//   bestTripCombo +
-//   " pour un gain total " +
-//   bestPrice;
-// document.getElementById("Etape6").innerText += "\n " + step6;
+    if (totalPrice > bestPrice) {
+      bestPrice = totalPrice;
+      bestTripCombo = tripCombo;
+    }
+  }
+
+  console.log(
+    "Meilleure combinaison de voyages: " +
+      bestTripCombo +
+      " pour un gain total " +
+      bestPrice
+  );
+
+  return {
+    combo: bestCombo,
+    bestPrice: bestPrice,
+    bestTripCombo: bestTripCombo,
+  };
+}
+
+let step6 = findBestPrice(tripListArray);
+console.log(
+  "Meilleure combinaison de voyages: " +
+    step6.bestTripCombo +
+    " pour un gain total " +
+    step6.bestPrice
+);
+
